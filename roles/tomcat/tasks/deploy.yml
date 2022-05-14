@@ -1,0 +1,8 @@
+---
+  - name: Copy WAR file
+    copy:
+      src: "java-web-app-{{ war_version }}.war"
+      dest: "{{ tomcat_install_path }}/apache-tomcat-{{ tomcat_version }}/webapps/java-web-app-{{ war_version }}.war"
+      owner: "{{ tomcat_group }}"
+      group: "{{ tomcat_group }}"
+      mode: '0754'

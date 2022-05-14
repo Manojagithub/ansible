@@ -2,6 +2,6 @@
   - hosts: tomcat
     name: Installing Tomcat
     gather_facts: yes
-    serial: 50%
+    #serial: 50%
     roles:
       - tomcat

@@ -9,6 +9,12 @@
   include: configure.yml
   when: tomcat_state == "present"
 
+- name: Deploy WAR
+  include: deploy.yml
+  when: tomcat_state == "present" or deploy_war == "true"
+  tags:
+    - deploy
+
 - name: Uninstall tomcat
   include: uninstall.yml
   when: tomcat_state == "absent"
