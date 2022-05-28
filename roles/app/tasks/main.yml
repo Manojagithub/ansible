@@ -1,0 +1,52 @@
+---
+- name: Create required directories
+  become: yes
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+    owner: "{{ appuser_name }}"
+    group: "{{ appuser_group_name }}"
+  with_items:
+    - "{{ app_path }}"
+    - "{{ app_path }}/logs"
+  when: opt == "Install"
+
+- name: Copy docker-compose file and env file
+  become: yes
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ appuser_name }}"
+    group: "{{ appuser_group_name }}"
+    mode: 0755
+  with_items:
+    - src: "docker-compose.yml.j2"
+      dest:  "{{ app_path }}/docker-compose.yml"
+    - src: env.j2
+      dest: "{{app_path}}/.env"
+  when: opt == "Install" or opt == "upgrade"
+
+- name: Start docker
+  # become: yes
+  shell: "docker-compose up -d"
+  args:
+    chdir: /opt/app
+  register: start_docker
+  when: not ansible_check_mode and ( opt == "Install" or  opt == "upgrade" )
+
+- name: show start docker output
+  debug: var="start_docker"
+  when: not ansible_check_mode and  ( opt == "Install" or  opt == "upgrade" )
+
+- name:  docker status
+  # become: yes
+  shell: "docker-compose ps"
+  args:
+    chdir: /opt/app
+  register: status_docker
+  when: not ansible_check_mode and ( opt == "Install" or  opt == "upgrade" )
+
+- name: show docker status output
+  debug: var="status_docker.stdout"
+  when: not ansible_check_mode and  ( opt == "Install" or  opt == "upgrade" )

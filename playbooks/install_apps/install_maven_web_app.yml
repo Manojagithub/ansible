@@ -1,0 +1,7 @@
+---
+  - hosts: app
+    name: Install Springboot Web Application
+    gather_facts: yes
+    roles:
+      - common
+      - { role: app, opt: "Install" }

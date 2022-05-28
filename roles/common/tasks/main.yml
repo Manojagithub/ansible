@@ -1,0 +1,17 @@
+---
+  - name: create appuser group
+    become: yes
+    group:
+      name: "{{ appuser_group_name }}"
+      gid: "{{ appuser_group_gid }}"
+      state: present
+
+  - name: Create appuser
+    become: yes
+    user:
+      name: "{{ appuser_name }}"
+      uid: "{{ appuser_uid }}"
+      groups: "{{ appuser_group_name }}"
+      state: present
+    tags:
+      - config

@@ -1,0 +1,9 @@
+appuser_group_name: appuser
+appuser_group_gid: 1001
+appuser_name: appuser
+appuser_uid: 1001
+app_path: /opt/app
+host_port: 9090
+container_port: 8080
+image_name: manojadockerhub/maven-web-application
+tag: 8.5.79-21

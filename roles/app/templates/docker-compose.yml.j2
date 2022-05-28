@@ -1,0 +1,13 @@
+version: '3.1'
+services:
+  springboot:
+    image: ${IMAGE_NAME}:${TAG}
+    restart: always
+    ports:
+    - ${HOST_PORT}:${CONTAINER_PORT}
+    volumes:
+      - "${LOG_DIR}:/usr/local/tomcat/logs"
+    networks:
+    - mavenappbridge
+networks:
+  mavenappbridge:

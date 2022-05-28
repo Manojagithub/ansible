@@ -4,4 +4,5 @@
     gather_facts: yes
     #serial: 50%
     roles:
+      - java
       - tomcat
