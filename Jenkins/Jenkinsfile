@@ -8,7 +8,7 @@ pipeline {
         dir("playbooks/install_apps"){
           ansiColor('xterm') {
             ansiblePlaybook(
-                playbook: 'install_maven_web_app.yml'',
+                playbook: 'install_maven_web_app.yml',
                 inventory: '../../env/dev/dev.ini',
                 credentialsId: 'devops',
                 colorized: true)
